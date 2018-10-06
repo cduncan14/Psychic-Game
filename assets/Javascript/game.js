@@ -1,29 +1,52 @@
-// Varabiles
-var winstxt = document.getElementsByClassName = "wins";
-var Losstxt = document.getElementsByClassName = "Loss";
-var Gametxt = document.getElementsByClassName = "Game";
-var Guesstxt = document.getElementsByClassName = "Guess";
+//Variables
+// var winstxt = document.getElementsByid = "Wins";
+// var Losstxt = document.getElementsByid = "Loss";
+// var Gametxt = document.getElementsByid = "Game";
+// var Guesstxt = document.getElementsByid = "Guess";
 var wins = 0;
 var Guess = 0;
 var Loss = 0;
+var compGuess = 1;
 var computerChoices = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var guessesSoFar = [];
 
+function getNewCG() {
+    this.compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    this.guessesSoFar = [];
+    console.log("try");
+}
+
+getNewCG();
 
 document.onkeyup = function (event) {
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    
+    //if(Guess == 1) {
+    //   var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    //}
+
     var userGuess = event.key.toUpperCase();
-    console.log(computerGuess)
-    if ((userGuess == computerChoices)) {
-        if ((Guess == 6)) {
-            Loss+1;
+    //console.log(computerGuess)
+    if ((isNaN(userGuess) == true)) {
+        if ((Guess == 9)) {
+            Loss = Loss+1;
+            Guess = 0;
+            getNewCG();
         }
-        else if ((userGuess == "W")) {
-            wins+1;
+        else if ((userGuess == compGuess)) {
+            wins = wins+1;
+            Guess = 0;
+            getNewCG();
         }
-        else if ((userGuess != computerGuess)) {
-            Guess+1;
+        else if ((userGuess != compGuess)) {
+            Guess = Guess+1;
+            guessesSoFar.push(userGuess);
         }
+    console.log("Wins: " + wins + " Guesses: " + Guess + " Losses: " + Loss);
+    console.log("Computer Guess: " + compGuess + " Your Guess: " + userGuess);
+    console.log("Guesses so Far: " + guessesSoFar)
+    document.getElementById(Guess).innerHTML = guessesSoFar;
     }
-    console.log("Wins: " + wins + " Guesses: " + Guess + " Loss: " + Loss);
-    console.log("Computer Guess: " + computerGuess + " Your Guess: " + userGuess)
+    if ((isNaN(userGuess) == false)) {
+        console.log("Please Input a Letter! :)");
+    } 
 };
